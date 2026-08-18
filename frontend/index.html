@@ -290,13 +290,24 @@
                 senha: senha.value
             })
         })
-        .then(r => r.json())
-        .then(data => {
-            if(data.tipo === "triagem") location.href = "triagem.html";
-           if(data.tipo === "medico")  location.href = "medico.html";
-             if(data.tipo === "atendimento") location.href = "atendimento.html";
-        });
-        }
+
+            function login() {
+  fetch("/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      usuario: usuario.value,
+      senha: senha.value
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if(data.tipo === "triagem") location.href = "triagem.html";
+    if(data.tipo === "medico") location.href = "medico.html";
+    if(data.tipo === "atendimento") location.href = "atendimento.html";
+  });
+}
+        
         const form = document.getElementById("loginForm");
         const usuario = document.getElementById("usuario");
         const senha = document.getElementById("senha");
