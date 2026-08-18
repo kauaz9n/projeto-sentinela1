@@ -464,26 +464,19 @@
     }
   ],
   "tv_chamada": {
-    "id": "1786537330670",
-    "localTipo": "GUICHÊ",
+    "id": "1786543619848",
+    "localTipo": "CONSULTÓRIO",
     "localNumero": "01",
-    "paciente": "",
-    "hora": "09:22"
+    "paciente": "test",
+    "hora": "11:06"
   },
   "tv_historico": [
     {
-      "id": "1786537330670",
-      "localTipo": "GUICHÊ",
+      "id": "1786543619848",
+      "localTipo": "CONSULTÓRIO",
       "localNumero": "01",
-      "paciente": "",
-      "hora": "09:22"
-    },
-    {
-      "id": "1786536643198",
-      "localTipo": "GUICHÊ",
-      "localNumero": "01",
-      "paciente": "kinder ovo ",
-      "hora": "09:10"
+      "paciente": "test",
+      "hora": "11:06"
     },
     {
       "id": "1786452864874",
@@ -505,6 +498,13 @@
       "localNumero": "01",
       "paciente": "teste",
       "hora": "08:13"
+    },
+    {
+      "id": "1786100378594",
+      "localTipo": "CONSULTÓRIO",
+      "localNumero": "01",
+      "paciente": "test",
+      "hora": "07:59"
     }
   ]
 }
