@@ -124,10 +124,7 @@ app.post("/tv/chamar", (req, res) => {
     localTipo: req.body.localTipo,
     localNumero: req.body.localNumero,
     paciente: req.body.paciente,
-    hora: new Date().toLocaleTimeString("pt-BR", {
-      hour: "2-digit",
-      minute: "2-digit"
-    })
+    hora: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
   };
 
   db.tv_chamada = chamada;
@@ -190,6 +187,8 @@ app.get("/medicacoes", (req, res) => {
 });
 
 // START
-app.listen(3000, () => {
-  console.log("🏥 Hospital Pro rodando em http://localhost:3000");
+const PORT = process.env.PORT
+              || 3000;
+  app.listen(PORT, () => {
+  console.log(`Porta ${PORT}`);
 });
