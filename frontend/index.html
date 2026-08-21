@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -229,162 +230,121 @@
 
     <div class="container">
 
+        <!-- ÍCONE -->
         <div class="icon">
             🏥
         </div>
 
+        <!-- TÍTULO -->
         <h2>Sistema Hospitalar</h2>
 
         <p class="subtitle">
-            Acesso ao sistema de atendimento
+            Acesso ao sistema KS Hospital
         </p>
 
-        <form id="loginForm">
+        <!-- USUÁRIO -->
+        <div class="input-group">
+            <label for="usuario">Usuário</label>
 
-            <div class="input-group">
-                <label for="usuario">Usuário</label>
+            <input
+                type="text"
+                id="usuario"
+                placeholder="Digite seu usuário"
+                autocomplete="username"
+            >
+        </div>
 
-                <input
-                    type="text"
-                    id="usuario"
-                    placeholder="Digite seu usuário"
-                    autocomplete="username"
-                    required
-                >
-            </div>
+        <!-- SENHA -->
+        <div class="input-group">
+            <label for="senha">Senha</label>
 
-            <div class="input-group">
-                <label for="senha">Senha</label>
+            <input
+                type="password"
+                id="senha"
+                placeholder="Digite sua senha"
+                autocomplete="current-password"
+            >
+        </div>
 
-                <input
-                    type="password"
-                    id="senha"
-                    placeholder="Digite sua senha"
-                    autocomplete="current-password"
-                    required
-                >
-            </div>
+        <!-- BOTÃO -->
+        <button onclick="login()">
+            Entrar
+        </button>
 
-            <button type="submit" id="btnLogin">
-                Entrar no sistema
-            </button>
-
-        </form>
-
+        <!-- MENSAGEM -->
         <div id="mensagem"></div>
 
+        <!-- RODAPÉ -->
         <div class="footer">
-            Sistema Hospitalar © 2026
+            KS Hospital • Sistema Hospitalar
         </div>
 
     </div>
 
     <script>
+        function login() {
 
-        fetch("/login", {
-            
-             method: "POST",
-             headers: {"Content-Typer": "application/json"},
-            body: JSON.stringfy({
-                usuario: usuario.value,
-                senha: senha.value
-            })
-        })
+            const usuario = document.getElementById("usuario").value;
+            const senha = document.getElementById("senha").value;
+            const mensagem = document.getElementById("mensagem");
 
-            function login() {
-  fetch("/login", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      usuario: usuario.value,
-      senha: senha.value
-    })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if(data.tipo === "triagem") location.href = "triagem.html";
-    if(data.tipo === "medico") location.href = "medico.html";
-    if(data.tipo === "atendimento") location.href = "atendimento.html";
-  });
-}
-        
-        const form = document.getElementById("loginForm");
-        const usuario = document.getElementById("usuario");
-        const senha = document.getElementById("senha");
-        const mensagem = document.getElementById("mensagem");
-        const btnLogin = document.getElementById("btnLogin");
+            if (!usuario || !senha) {
+                mensagem.textContent = "Preencha usuário e senha.";
+                mensagem.className = "erro";
+                return;
+            }
 
-        form.addEventListener("submit", async function(event) {
-
-            event.preventDefault();
-
-            mensagem.textContent = "";
+            mensagem.textContent = "Entrando...";
             mensagem.className = "";
 
-            btnLogin.disabled = true;
-            btnLogin.textContent = "Entrando...";
+            fetch("http://localhost:3000/login", {
+                method: "POST",
 
-            try {
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-                const resposta = await fetch("http://localhost:3000/login", {
-                    method: "POST",
+                body: JSON.stringify({
+                    usuario: usuario,
+                    senha: senha
+                })
+            })
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+            .then(r => r.json())
 
-                    body: JSON.stringify({
-                        usuario: usuario.value,
-                        senha: senha.value
-                    })
-                });
-
-                const data = await resposta.json();
-
-                if (!resposta.ok) {
-                    throw new Error(
-                        data.mensagem || "Usuário ou senha inválidos."
-                    );
-                }
-
-                mensagem.textContent = "Login realizado com sucesso!";
-                mensagem.className = "sucesso";
-
-                /*
-                 * Redirecionamento de acordo com o tipo
-                 * de usuário retornado pelo servidor.
-                 */
+            .then(data => {
 
                 if (data.tipo === "triagem") {
-                    window.location.href = "triagem.html";
+                    location.href = "triagem.html";
                 }
 
                 else if (data.tipo === "medico") {
-                    window.location.href = "medico.html";
+                    location.href = "medico.html";
                 }
 
                 else if (data.tipo === "atendimento") {
-                    window.location.href = "atendimento.html";
+                    location.href = "atendimento.html";
                 }
 
                 else {
-                    throw new Error("Tipo de usuário não reconhecido.");
+                    mensagem.textContent = "Usuário ou senha inválidos.";
+                    mensagem.className = "erro";
                 }
 
-            } catch (erro) {
+            })
 
-                console.error(erro);
+            .catch(error => {
+
+                console.error(error);
 
                 mensagem.textContent =
-                    erro.message || "Erro ao realizar login.";
+                    "Não foi possível conectar ao servidor.";
 
                 mensagem.className = "erro";
-
-                btnLogin.disabled = false;
-                btnLogin.textContent = "Entrar no sistema";
-            }
-        });
+            });
+        }
     </script>
 
 </body>
+
 </html>
