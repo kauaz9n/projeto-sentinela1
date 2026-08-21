@@ -1,4 +1,355 @@
-const express = require("express");
+meu index do backand <!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema Hospitalar</title>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== PÁGINA ===== */
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(13, 148, 136, 0.08),
+                    rgba(37, 99, 235, 0.08)
+                ),
+                #f4f8fb;
+
+            color: #1e293b;
+        }
+
+        /* ===== CARD ===== */
+        .container {
+            width: 400px;
+            padding: 42px 38px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 20px 50px rgba(15, 23, 42, 0.12),
+                0 4px 12px rgba(15, 23, 42, 0.05);
+
+            border: 1px solid #e2e8f0;
+
+            text-align: center;
+        }
+
+        /* ===== ÍCONE ===== */
+        .icon {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #0f4c81,
+                #0d9488
+            );
+
+            border-radius: 50%;
+
+            color: white;
+            font-size: 34px;
+
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.25);
+        }
+
+        /* ===== TÍTULO ===== */
+        h2 {
+            margin-bottom: 8px;
+
+            color: #0f4c81;
+
+            font-size: 27px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+        /* ===== INPUTS ===== */
+        .input-group {
+            text-align: left;
+            margin-bottom: 17px;
+        }
+
+        .input-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #334155;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .container input {
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+
+            background: #f8fafc;
+
+            color: #1e293b;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.25s ease;
+        }
+
+        .container input::placeholder {
+            color: #94a3b8;
+        }
+
+        .container input:focus {
+            border-color: #0d9488;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 3px rgba(13, 148, 136, 0.12);
+        }
+
+        /* ===== BOTÃO ===== */
+        button {
+            width: 100%;
+
+            padding: 14px;
+            margin-top: 8px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #0f4c81,
+                #0d9488
+            );
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 15px rgba(13, 148, 136, 0.2);
+
+            transition: all 0.25s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 9px 20px rgba(13, 148, 136, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* ===== MENSAGEM ===== */
+        #mensagem {
+            min-height: 20px;
+
+            margin-top: 18px;
+
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .erro {
+            color: #dc2626;
+        }
+
+        .sucesso {
+            color: #059669;
+        }
+
+        /* ===== RODAPÉ ===== */
+        .footer {
+            margin-top: 25px;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 480px) {
+            .container {
+                width: calc(100% - 30px);
+                padding: 35px 25px;
+            }
+
+            h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ÍCONE -->
+        <div class="icon">
+            🏥
+        </div>
+
+        <!-- TÍTULO -->
+        <h2>Sistema Hospitalar</h2>
+
+        <p class="subtitle">
+            Acesso ao sistema KS Hospital
+        </p>
+
+        <!-- USUÁRIO -->
+        <div class="input-group">
+            <label for="usuario">Usuário</label>
+
+            <input
+                type="text"
+                id="usuario"
+                placeholder="Digite seu usuário"
+                autocomplete="username"
+            >
+        </div>
+
+        <!-- SENHA -->
+        <div class="input-group">
+            <label for="senha">Senha</label>
+
+            <input
+                type="password"
+                id="senha"
+                placeholder="Digite sua senha"
+                autocomplete="current-password"
+            >
+        </div>
+
+        <!-- BOTÃO -->
+        <button onclick="login()">
+            Entrar
+        </button>
+
+        <!-- MENSAGEM -->
+        <div id="mensagem"></div>
+
+        <!-- RODAPÉ -->
+        <div class="footer">
+            KS Hospital • Sistema Hospitalar
+        </div>
+
+    </div>
+
+    <script>
+        function login() {
+
+            const usuario = document.getElementById("usuario").value;
+            const senha = document.getElementById("senha").value;
+            const mensagem = document.getElementById("mensagem");
+
+            if (!usuario || !senha) {
+                mensagem.textContent = "Preencha usuário e senha.";
+                mensagem.className = "erro";
+                return;
+            }
+
+            mensagem.textContent = "Entrando...";
+            mensagem.className = "";
+
+            fetch("http://localhost:3000/login", {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    usuario: usuario,
+                    senha: senha
+                })
+            })
+
+            .then(r => r.json())
+
+            .then(data => {
+
+                if (data.tipo === "triagem") {
+                    location.href = "triagem.html";
+                }
+
+                else if (data.tipo === "medico") {
+                    location.href = "medico.html";
+                }
+
+                else if (data.tipo === "atendimento") {
+                    location.href = "atendimento.html";
+                }
+
+                else {
+                    mensagem.textContent = "Usuário ou senha inválidos.";
+                    mensagem.className = "erro";
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                mensagem.textContent =
+                    "Não foi possível conectar ao servidor.";
+
+                mensagem.className = "erro";
+            });
+        }
+    </script>
+
+</body>
+
+</html>
+
+e esse e meu index do api const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
@@ -18,32 +369,19 @@ function readDB() {
       usuarios: [],
       pacientes: [],
       triagens: [],
-      consultas: [],
-      tv_chamada: null,
-      tv_historico: []
+      consultas: []
     };
   }
 
-  const db = JSON.parse(fs.readFileSync(DB_FILE));
-
-  if (!db.tv_chamada) db.tv_chamada = null;
-  if (!db.tv_historico) db.tv_historico = [];
-
-  return db;
+  return JSON.parse(fs.readFileSync(DB_FILE));
 }
 
 function writeDB(data) {
-  fs.writeFileSync(
-    DB_FILE,
-    JSON.stringify(data, null, 2)
-  );
+  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-
-// ==================== LOGIN ====================
-
+// LOGIN
 app.post("/login", (req, res) => {
-
   const db = readDB();
 
   const user = db.usuarios.find(u =>
@@ -60,11 +398,8 @@ app.post("/login", (req, res) => {
   res.json(user);
 });
 
-
-// ==================== ATENDIMENTO ====================
-
+// ATENDIMENTO
 app.post("/atendimento", (req, res) => {
-
   const db = readDB();
 
   const paciente = {
@@ -77,41 +412,22 @@ app.post("/atendimento", (req, res) => {
   };
 
   db.pacientes.push(paciente);
-
   writeDB(db);
 
   res.json(paciente);
 });
 
-
-// ==================== LISTAR PACIENTES ====================
-
-app.get("/pacientes", (req, res) => {
-
-  const db = readDB();
-
-  res.json(db.pacientes);
-});
-
-
-// ==================== TRIAGEM ====================
-
+// TRIAGEM
 app.post("/triagem", (req, res) => {
-
   const db = readDB();
 
   let risco = req.body.risco;
 
   if (req.body.temperatura >= 39) {
-
     risco = "vermelho";
-
   } else if (req.body.temperatura >= 38) {
-
     risco = "amarelo";
-
   } else if (!risco) {
-
     risco = "verde";
   }
 
@@ -128,86 +444,20 @@ app.post("/triagem", (req, res) => {
   };
 
   db.triagens.push(triagem);
-
   writeDB(db);
 
   res.json(triagem);
 });
 
-
-// ==================== LISTAR TRIAGENS ====================
-
+// LISTAR TRIAGENS
 app.get("/triagens", (req, res) => {
-
   const db = readDB();
-
   res.json(db.triagens);
 });
 
-
-// ==================== TV ====================
-
-// Envia a chamada do paciente para a TV
-
-app.post("/tv/chamar", (req, res) => {
-
-  const db = readDB();
-
-  const chamada = {
-
-    id: Date.now().toString(),
-
-    localTipo: req.body.localTipo,
-
-    localNumero: req.body.localNumero,
-
-    paciente: req.body.paciente,
-
-    hora: new Date().toLocaleTimeString(
-      "pt-BR",
-      {
-        hour: "2-digit",
-        minute: "2-digit"
-      }
-    )
-  };
-
-  db.tv_chamada = chamada;
-
-  db.tv_historico.unshift(chamada);
-
-  if (db.tv_historico.length > 5) {
-    db.tv_historico.pop();
-  }
-
-  writeDB(db);
-
-  res.json(chamada);
-});
-
-
-// Consulta a chamada atual e histórico da TV
-
-app.get("/tv/chamada", (req, res) => {
-
-  const db = readDB();
-
-  res.json({
-
-    chamada: db.tv_chamada,
-
-    historico: db.tv_historico
-
-  });
-});
-
-
-// ==================== LISTA DE MEDICAÇÕES ====================
-
+// IMPLEMENTADO: rota com lista fixa de medicações
 app.get("/lista-medicacoes", (req, res) => {
-
   res.json([
-
     "Dipirona",
     "Paracetamol",
     "Ibuprofeno",
@@ -218,57 +468,33 @@ app.get("/lista-medicacoes", (req, res) => {
     "Buscopan",
     "Dramin",
     "Soro fisiológico"
-
   ]);
 });
 
-
-// ==================== CONSULTA ====================
-
+// CONSULTA
 app.post("/consulta", (req, res) => {
-
   const db = readDB();
 
   const consulta = {
-
     id: Date.now(),
-
     paciente: req.body.paciente,
-
     diagnostico: req.body.diagnostico,
-
     medicacao: req.body.medicacao,
-
     obs: req.body.obs,
-
     createdAt: new Date()
-
   };
 
   db.consultas.push(consulta);
-
   writeDB(db);
 
   res.json(consulta);
 });
 
-
-// ==================== MEDICAÇÕES ====================
-
+// MEDICAÇÕES
 app.get("/medicacoes", (req, res) => {
-
   const db = readDB();
-
   res.json(db.consultas);
 });
 
-
-// ==================== INICIAR SERVIDOR ====================
-
-app.listen(3000, () => {
-
-  console.log(
-    "🏥 Hospital Pro rodando em http://localhost:3000"
-  );
-
-});
+// START
+module.exports = app;
