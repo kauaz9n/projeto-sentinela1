@@ -1,33 +1,150 @@
+```html
 <!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
-  <h2>🏥 Sistema Hospitalar</h2>
-  <input id="usuario" placeholder="Usuário">
-  <input id="senha" type="password" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
-</div>
+<html lang="pt-BR">
 
-<script>
-function login() {
-  fetch("/login", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      usuario: usuario.value,
-      senha: senha.value
-    })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if(data.tipo === "triagem") location.href = "triagem.html";
-    if(data.tipo === "medico") location.href = "medico.html";
-    if(data.tipo === "atendimento") location.href = "atendimento.html";
-  });
-}
-</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema Hospitalar</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef5f8;
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 350px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+
+            text-align: center;
+        }
+
+        h2 {
+            color: #1677a8;
+
+            margin-bottom: 8px;
+
+            font-size: 24px;
+        }
+
+        p {
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            border: 1px solid #d5dfe4;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #1677a8;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #1677a8;
+
+            color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #12648e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>🏥 Sistema Hospitalar</h2>
+
+        <p>Acesso ao sistema</p>
+
+        <input id="usuario" type="text" placeholder="Usuário">
+
+        <input id="senha" type="password" placeholder="Senha">
+
+        <button onclick="login()">Entrar</button>
+
+    </div>
+
+    <script>
+        function login() {
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    usuario: usuario.value,
+                    senha: senha.value
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+
+                if (data.tipo === "triagem")
+                    location.href = "triagem.html";
+
+                if (data.tipo === "medico")
+                    location.href = "medico.html";
+
+                if (data.tipo === "atendimento")
+                    location.href = "atendimento.html";
+
+            });
+        }
+    </script>
+
 </body>
+
 </html>
+```
