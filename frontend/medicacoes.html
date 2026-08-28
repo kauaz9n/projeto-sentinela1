@@ -1,64 +1,213 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Medicações - Sistema Hospitalar</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef5f8;
+
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 30px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 650px;
+
+      background: white;
+
+      padding: 35px;
+
+      border-radius: 10px;
+
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+    }
+
+    h2 {
+      text-align: center;
+
+      color: #1677a8;
+
+      font-size: 25px;
+
+      margin-bottom: 8px;
+    }
+
+    .subtitulo {
+      text-align: center;
+
+      color: #777;
+
+      font-size: 14px;
+
+      margin-bottom: 28px;
+    }
+
+    #listaMedicacoes {
+      width: 100%;
+    }
+
+    #listaMedicacoes > p {
+      text-align: center;
+
+      color: #777;
+
+      padding: 20px;
+    }
+
+    .card {
+      background: #f8fafb;
+
+      border: 1px solid #dce5e9;
+
+      border-left: 4px solid #1677a8;
+
+      border-radius: 7px;
+
+      padding: 18px;
+
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #1677a8;
+
+      font-size: 18px;
+
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      color: #555;
+
+      font-size: 14px;
+
+      line-height: 1.5;
+
+      margin-bottom: 8px;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card b {
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 15px;
+      }
+
+      .container {
+        padding: 25px 20px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <h2>💊 Medicações Prescritas</h2>
+    <h2>💊 Medicações Prescritas</h2>
 
-  <!-- IMPLEMENTADO: local onde a lista de medicações será exibida -->
-  <div id="listaMedicacoes"></div>
+    <p class="subtitulo">
+      Medicações prescritas para os pacientes
+    </p>
 
-</div>
+    <div id="listaMedicacoes"></div>
 
-<script>
+  </div>
 
-// IMPLEMENTADO: busca as consultas salvas e mostra as medicações
-function carregarMedicacoesPrescritas() {
-  fetch("/medicacoes")
-    .then(r => r.json())
-    .then(data => {
-      const div = document.getElementById("listaMedicacoes");
+  <script>
 
-      div.innerHTML = "";
+    // Busca as consultas salvas e mostra as medicações
+    function carregarMedicacoesPrescritas() {
 
-      if (data.length === 0) {
-        div.innerHTML = "<p>Nenhuma medicação prescrita.</p>";
-        return;
-      }
+      fetch("/medicacoes")
 
-      data.forEach(c => {
-        div.innerHTML += `
-          <div class="card">
-            <h3>${c.paciente}</h3>
+        .then(r => r.json())
 
-            <p>
-              <b>Medicação:</b>
-              ${c.medicacao}
-            </p>
+        .then(data => {
 
-            <p>
-              <b>Diagnóstico:</b>
-              ${c.diagnostico}
-            </p>
+          const div = document.getElementById("listaMedicacoes");
 
-            <p>
-              <b>Observações:</b>
-              ${c.obs || "Nenhuma"}
-            </p>
-          </div>
-        `;
-      });
-    });
-}
+          div.innerHTML = "";
 
-carregarMedicacoesPrescritas();
+          if (data.length === 0) {
 
-</script>
+            div.innerHTML = "<p>Nenhuma medicação prescrita.</p>";
+
+            return;
+          }
+
+          data.forEach(c => {
+
+            div.innerHTML += `
+              <div class="card">
+
+                <h3>${c.paciente}</h3>
+
+                <p>
+                  <b>Medicação:</b>
+                  ${c.medicacao}
+                </p>
+
+                <p>
+                  <b>Diagnóstico:</b>
+                  ${c.diagnostico}
+                </p>
+
+                <p>
+                  <b>Observações:</b>
+                  ${c.obs || "Nenhuma"}
+                </p>
+
+              </div>
+            `;
+
+          });
+
+        })
+
+        .catch(error => {
+
+          console.error(error);
+
+          document.getElementById("listaMedicacoes").innerHTML =
+            "<p>Erro ao carregar as medicações.</p>";
+
+        });
+    }
+
+    carregarMedicacoesPrescritas();
+
+  </script>
 
 </body>
+
 </html>
